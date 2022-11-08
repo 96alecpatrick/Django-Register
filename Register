@@ -1,0 +1,16 @@
+def register(request):
+    form = Register()
+    if request.method == "POST":
+        request.POST.get("username")
+        request.POST.get("email")
+        request.POST.get("password")
+        request.POST.get("confirm_pass")
+        if Register.confirm_pass != Register.password:
+            return HttpResponse("Passwords do not match.")
+        else:
+            return HttpResponse("Passwords match")
+    if form.is_valid():
+        messages.success("You are signed up!")
+        form.save()
+    context = {"form": form}
+    return(request, "login.html", context)
